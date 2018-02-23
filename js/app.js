@@ -87,7 +87,7 @@ function render() {
 
 	time = Date.now();
 	ellapsedTime = time - startTime;
-	console.log(ellapsedTime);
+	console.log(force);
 
 	oldPosition = currentSpinner.angularPosition;
 
@@ -141,6 +141,7 @@ function getSpinnerThree(){
 function Stop(){
 	cancelAnimationFrame(animationFrame);
 	isStopped = true;
+	document.getElementById("button").innerHTML = "START";
 
 }
 
@@ -150,6 +151,7 @@ function Start(){
 	force = 0.1; //reinitialize force
 	animate();
 	isStopped = false;
+	document.getElementById("button").innerHTML = "STOPP";
 }
 
 function Button(){
