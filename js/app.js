@@ -6,6 +6,7 @@ var ellapsedTime = 0;
 var time;
 var startTime;
 var animationFrame;
+var isStopped = false;
 
 var scene = new THREE.Scene();
 var camera = new THREE.PerspectiveCamera( 45, window.innerWidth/window.innerHeight, 1, 2000 );
@@ -137,5 +138,18 @@ function getSpinnerThree(){
 
 function Stop(){
 	cancelAnimationFrame(animationFrame);
+	isStopped = true;
 
+}
+
+function Start(){
+	animate();
+	isStopped = false;
+}
+
+function Button(){
+	if(isStopped)
+		Start();
+	else 
+		Stop();
 }
