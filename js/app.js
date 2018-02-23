@@ -8,7 +8,7 @@ var animationFrame;
 var isStopped = false;
 
 // variables to change
-var startForce = 10; //initial force = 10
+//var startForce = 10; //initial force = 10
 var forcetime = 200; // 200
 var steplength = 0.01; // 0.05
 
@@ -164,10 +164,14 @@ function Stop(){
 function Start(){
 	startTime = Date.now(); //restart time 
 	oldPosition = 0;
-	force = startForce;
-	animate();
-	isStopped = false;
-	document.getElementById("button").innerHTML = "STOPP";
+	force = document.getElementById("initialforce").value;
+	if (force == 0)
+		isStopped = true;
+	else {
+		animate();
+		isStopped = false;
+		document.getElementById("button").innerHTML = "STOPP";
+	}
 }
 
 function Button(){
