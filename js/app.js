@@ -39,7 +39,7 @@ spinnerThree = new Spinner(0.026, 0.00005, 0.0000024, "textures/marble.jpg", "sp
 var currentSpinner = spinnerOne;
 
 init();
-animate();
+//animate();
 
 function init(){
 
@@ -84,10 +84,10 @@ function render() {
 	document.getElementById("spinner1").addEventListener("click", getSpinnerOne());
 	document.getElementById("spinner2").addEventListener("click", getSpinnerTwo());
 	document.getElementById("spinner3").addEventListener("click", getSpinnerThree());
-	//texture.needsUpdate = true;
 
 	time = Date.now();
 	ellapsedTime = time - startTime;
+	console.log(ellapsedTime);
 
 	oldPosition = currentSpinner.angularPosition;
 
@@ -109,8 +109,10 @@ function switchSpinner() {
 		sceneRoot.remove(sceneRoot.children[i]);
 	}
 
+	Stop();
 	//reinitialise the stuff
 	init();
+
 }
 
 function updateCurrentSpinner(number) {
@@ -143,6 +145,9 @@ function Stop(){
 }
 
 function Start(){
+	startTime = Date.now(); //restart time 
+	oldPosition = 0;
+	force = 0.1; //reinitialize force
 	animate();
 	isStopped = false;
 }
