@@ -15,7 +15,6 @@ class Spinner {
 		var angularAcceleration = (1/(this.inertia)) * (this.diameter*force - this.friction*this.angularVelocity);
 		this.angularVelocity = this.angularVelocity + stepLength*angularAcceleration;
 		this.angularPosition = this.angularPosition + stepLength*this.angularVelocity;
-
 	}
 
 }

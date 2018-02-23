@@ -1,10 +1,11 @@
 var container = document.getElementById( 'container' );
 var pi = 3.1415926535;
-var force = 10; //initial force 
+var force = 0.1; //initial force 
 var oldPosition;
 var ellapsedTime = 0;
 var time;
 var startTime;
+var animationFrame;
 
 var scene = new THREE.Scene();
 var camera = new THREE.PerspectiveCamera( 45, window.innerWidth/window.innerHeight, 1, 2000 );
@@ -30,7 +31,7 @@ var sceneRoot = new THREE.Group();
 scene.add(sceneRoot);
 
 // Spinner options
-spinnerOne = new Spinner(0.026, 0.00005, 0.0000024, "textures/red.png", "spinners/spinner.obj");
+spinnerOne = new Spinner(0.026, 0.0005, 0.00000000024, "textures/red.png", "spinners/spinner.obj");
 spinnerTwo = new Spinner(0.026, 0.00005, 0.0000024, "textures/metal.jpg", "spinners/gulbatman.obj");
 spinnerThree = new Spinner(0.026, 0.00005, 0.0000024, "textures/marble.jpg", "spinners/tredjespinner.obj");
 //initialize spinner
@@ -72,7 +73,7 @@ function init(){
 
 function animate() {
 
-	requestAnimationFrame( animate );
+	animationFrame = requestAnimationFrame( animate );
 	render();
 
 }
@@ -132,4 +133,9 @@ function getSpinnerTwo(){
 
 function getSpinnerThree(){
 	currentSpinner = spinnerThree;
+}
+
+function Stop(){
+	cancelAnimationFrame(animationFrame);
+
 }
