@@ -1,0 +1,27 @@
+body {
+	background-color: black;
+	margin: 0px;
+	padding: 0px;
+}
+
+
+#container {
+float: right;
+
+}
+
+#gui {
+
+float: left; 
+position: fixed;
+height: 200px; 
+width: 200px;
+
+
+}
+
+img {
+	margin-left: 18%;
+	margin-top: 5%;
+	cursor: pointer;
+}
