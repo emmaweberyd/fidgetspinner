@@ -1,12 +1,28 @@
 var container = document.getElementById( 'container' );
 var pi = 3.1415926535;
-var force = 0.1; //initial force 
 var oldPosition;
 var ellapsedTime = 0;
 var time;
 var startTime;
 var animationFrame;
 var isStopped = false;
+
+// variables to change
+var startForce = 10; //initial force = 10
+var forcetime = 200; // 200
+var steplength = 0.01; // 0.05
+
+var inertiaRed = 0.00005; // 0.00005
+var frictionRed = 0.0000024; // 0.0000024
+var diameterRed = 0.026; // 0.026
+
+var inertiaSilver = 0.00022697; // 0.00022697
+var frictionSilver = 0.0000024; // 0.0000024
+var diameterSilver = 0.04; // 0.04
+
+var inertiaGreen = 0.00037798; // 0.00037798
+var frictionGreen = 0.0000024; // 0.0000024
+var diameterGreen = 0.042; // 0.042
 
 var scene = new THREE.Scene();
 var camera = new THREE.PerspectiveCamera( 45, window.innerWidth/window.innerHeight, 1, 2000 );
@@ -32,11 +48,11 @@ var sceneRoot = new THREE.Group();
 scene.add(sceneRoot);
 
 // Spinner options
-spinnerOne = new Spinner(0.026, 0.0005, 0.00000000024, "textures/red.png", "spinners/spinner.obj");
-spinnerTwo = new Spinner(0.026, 0.00005, 0.0000024, "textures/metal.jpg", "spinners/gulbatman.obj");
-spinnerThree = new Spinner(0.026, 0.00005, 0.0000024, "textures/marble.jpg", "spinners/tredjespinner.obj");
+spinnerRed = new Spinner(diameterRed, inertiaRed, frictionRed, "textures/red.png", "spinners/spinner.obj");
+spinnerSilver = new Spinner(diameterSilver, inertiaSilver, frictionSilver, "textures/metal.jpg", "spinners/gulbatman.obj");
+spinnerGreen = new Spinner(diameterGreen, inertiaGreen, frictionGreen, "textures/marble.jpg", "spinners/tredjespinner.obj");
 //initialize spinner
-var currentSpinner = spinnerOne;
+var currentSpinner = spinnerRed
 
 init();
 //animate();
@@ -81,20 +97,20 @@ function animate() {
 
 function render() {
 	
-	document.getElementById("spinner1").addEventListener("click", getSpinnerOne());
-	document.getElementById("spinner2").addEventListener("click", getSpinnerTwo());
-	document.getElementById("spinner3").addEventListener("click", getSpinnerThree());
+	document.getElementById("spinnerRed").addEventListener("click", getSpinnerRed());
+	document.getElementById("spinnerSilver").addEventListener("click", getSpinnerSilver());
+	document.getElementById("spinnerGreen").addEventListener("click", getSpinnerGreen());
 
 	time = Date.now();
 	ellapsedTime = time - startTime;
-	console.log(ellapsedTime);
+	console.log(force);
 
 	oldPosition = currentSpinner.angularPosition;
 
-	if(force != 0 && ellapsedTime > 200) //200 millisec = 0.2 sec
+	if(force != 0 && ellapsedTime > forcetime) //200 millisec = 0.2 sec
 		force = 0; //after some time, stop applying force
 
-	currentSpinner.spin(force, 0.05); 
+	currentSpinner.spin(force, steplength); 
 	
 	sceneRoot.rotation.z += currentSpinner.angularPosition - oldPosition;
 
@@ -117,25 +133,25 @@ function switchSpinner() {
 
 function updateCurrentSpinner(number) {
 	if (number === 1)
-		currentSpinner = spinnerOne;
+		currentSpinner = spinnerRed;
 	else if (number === 2)
-		currentSpinner = spinnerTwo;
+		currentSpinner = spinnerSilver;
 	else if (number === 3)
-		currentSpinner = spinnerThree;
+		currentSpinner = spinnerGreen;
 
 	switchSpinner();
 }
 
-function getSpinnerOne(){
-	currentSpinner = spinnerOne;
+function getSpinnerRed(){
+	currentSpinner = spinnerRed;
 }
 
-function getSpinnerTwo(){
-	currentSpinner = spinnerTwo;
+function getSpinnerSilver(){
+	currentSpinner = spinnerSilver;
 }
 
-function getSpinnerThree(){
-	currentSpinner = spinnerThree;
+function getSpinnerGreen(){
+	currentSpinner = spinnerGreen;
 }
 
 function Stop(){
@@ -147,7 +163,7 @@ function Stop(){
 function Start(){
 	startTime = Date.now(); //restart time 
 	oldPosition = 0;
-	force = 0.1; //reinitialize force
+	force = startForce;
 	animate();
 	isStopped = false;
 }
