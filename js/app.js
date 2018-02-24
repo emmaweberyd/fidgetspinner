@@ -14,17 +14,17 @@ var steplength = 0.01; // 0.05
 
 var inertiaRed = 0.00005; // 0.00005
 var frictionRed = 0.0000024; // 0.0000024
-var radieRed = 0.026; // 0.026
+var radiusRed = 0.026; // 0.026
 var spinareaRed = 0.000546; // 0.000546, borde räknas om
 
 var inertiaSilver = 0.00022697; // 0.00022697
 var frictionSilver = 0.0000024; // 0.0000024
-var radieSilver = 0.04; // 0.04
+var radiusSilver = 0.04; // 0.04
 var spinareaSilver = 0.000546; // fel 
 
 var inertiaGreen = 0.00037798; // 0.00037798
 var frictionGreen = 0.0000024; // 0.0000024
-var radieGreen = 0.042; // 0.042
+var radiusGreen = 0.042; // 0.042
 var spinareaGreen = 0.000546; // fel
 
 
@@ -52,9 +52,9 @@ var sceneRoot = new THREE.Group();
 scene.add(sceneRoot);
 
 // Spinner options
-spinnerRed = new Spinner(radieRed, inertiaRed, frictionRed, spinareaRed, "textures/red.png", "spinners/spinner.obj");
-spinnerSilver = new Spinner(radieSilver, inertiaSilver, frictionSilver, spinareaSilver, "textures/metal.jpg", "spinners/gulbatman.obj");
-spinnerGreen = new Spinner(radieGreen, inertiaGreen, frictionGreen, spinareaGreen, "textures/marble.jpg", "spinners/tredjespinner.obj");
+spinnerRed = new Spinner(radiusRed, inertiaRed, frictionRed, spinareaRed, "textures/red.png", "spinners/spinner.obj");
+spinnerSilver = new Spinner(radiusSilver, inertiaSilver, frictionSilver, spinareaSilver, "textures/metal.jpg", "spinners/gulbatman.obj");
+spinnerGreen = new Spinner(radiusGreen, inertiaGreen, frictionGreen, spinareaGreen, "textures/marble.jpg", "spinners/tredjespinner.obj");
 //initialize spinner
 var currentSpinner = spinnerRed
 
