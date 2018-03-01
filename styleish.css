@@ -68,3 +68,7 @@ button {
     display: inline-block;
     padding: 15px 32px;
 }
+p{
+	text-align:center;
+	color: white;
+}

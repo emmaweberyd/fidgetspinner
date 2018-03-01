@@ -28,6 +28,10 @@ var frictionGreen = 0.0000024; // 0.0000024
 var radiusGreen = 0.042; // 0.042
 var spinareaGreen = 0.000546; // fel
 
+var slider = document.getElementById("initialforce");
+var output = document.getElementById("demo");
+
+
 
 var scene = new THREE.Scene();
 var camera = new THREE.PerspectiveCamera( 45, window.innerWidth/window.innerHeight, 1, 2000 );
@@ -106,6 +110,14 @@ function render() {
 	document.getElementById("spinnerSilver").addEventListener("click", getSpinnerSilver());
 	document.getElementById("spinnerGreen").addEventListener("click", getSpinnerGreen());
 
+
+output.innerHTML = slider.value;
+
+slider.oninput = function() {
+  output.innerHTML = this.value;
+}
+
+
 	time = Date.now();
 	ellapsedTime = time - startTime;
 	console.log(force);
@@ -167,6 +179,9 @@ function Stop(){
 }
 
 function Start(){
+
+
+
 	startTime = Date.now(); //restart time 
 	oldPosition = 0;
 	force = document.getElementById("initialforce").value;
