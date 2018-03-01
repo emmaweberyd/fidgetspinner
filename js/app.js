@@ -1,3 +1,4 @@
+
 var container = document.getElementById( 'container' );
 var pi = 3.1415926535;
 var oldPosition;
@@ -56,7 +57,7 @@ spinnerRed = new Spinner(radiusRed, inertiaRed, frictionRed, spinareaRed, "textu
 spinnerSilver = new Spinner(radiusSilver, inertiaSilver, frictionSilver, spinareaSilver, "textures/metal.jpg", "spinners/gulbatman.obj");
 spinnerGreen = new Spinner(radiusGreen, inertiaGreen, frictionGreen, spinareaGreen, "textures/marble.jpg", "spinners/tredjespinner.obj");
 //initialize spinner
-var currentSpinner = spinnerRed
+var currentSpinner = spinnerRed;
 
 init();
 //animate();
