@@ -1,7 +1,6 @@
 
 var container = document.getElementById( 'container' );
 var pi = 3.1415926535;
-var oldPosition;
 var ellapsedTime = 0;
 var time;
 var startTime;
@@ -111,11 +110,11 @@ function render() {
 	document.getElementById("spinnerGreen").addEventListener("click", getSpinnerGreen());
 
 
-output.innerHTML = slider.value;
+	output.innerHTML = slider.value;
 
-slider.oninput = function() {
-  output.innerHTML = this.value;
-}
+	slider.oninput = function() {
+  		output.innerHTML = this.value;
+	}
 
 
 	time = Date.now();
@@ -129,7 +128,7 @@ slider.oninput = function() {
 
 	currentSpinner.spin(force, steplength); 
 	
-	sceneRoot.rotation.z += currentSpinner.angularPosition - oldPosition;
+	sceneRoot.rotation.z += currentSpinner.angularPosition - currentSpinner.oldPosition;
 
 	renderer.render(scene, camera);
 
