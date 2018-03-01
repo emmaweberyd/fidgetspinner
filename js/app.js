@@ -200,3 +200,35 @@ function Button(){
 	else 
 		Stop();
 }
+
+// calculate distance and time -> gives acceleration. 
+function MousePos() {
+	
+	document.onmousedown = function(a){
+		startposX = a.pageX;
+		startposY = a.pageY;
+		// console.log("Start: X = " + startposX + ", Y = " + startposY);
+		
+		starttime = Date.now();
+		
+	}
+
+	document.onmouseup = function(a){
+		endposX = a.pageX;
+		endposY = a.pageY;
+		// console.log("Stopp: X = " + endposX + ", Y = " + endposY);
+		
+		endtime = Date.now();
+		
+		
+		dis = Math.pow((endposX-startposX), 2) + Math.pow((endposY-startposY), 2);
+		dis = Math.sqrt(dis);
+		
+		timedown = endtime - starttime;
+		
+		// console.log("TID NERE: " + timedown);
+		 console.log("Sträcka: " + dis);
+	}
+	
+
+}
