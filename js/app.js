@@ -35,8 +35,6 @@ var output = document.getElementById("demo");
 var velocityoutput = document.getElementById("velocity");
 var currentmass = document.getElementById("mass");
 
-
-
 var scene = new THREE.Scene();
 var camera = new THREE.PerspectiveCamera( 45, window.innerWidth/window.innerHeight, 1, 2000 );
 camera.position.set(0, 0, 1000);
@@ -125,12 +123,6 @@ function render() {
 	
 	//Mass
 	currentmass.innerHTML = currentSpinner.mass;
-	
-	output.innerHTML = slider.value;
-
-	slider.oninput = function() {
-  		output.innerHTML = this.value;
-	}
 
 	time = Date.now();
 	ellapsedTime = time - startTime;
