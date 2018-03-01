@@ -17,19 +17,24 @@ var inertiaRed = 0.00005; // 0.00005
 var frictionRed = 0.0000024; // 0.0000024
 var radiusRed = 0.026; // 0.026
 var spinareaRed = 0.000546; // 0.000546, borde räknas om
+var spinredmass = 0.0560; // 0.0560
 
 var inertiaSilver = 0.00022697; // 0.00022697
 var frictionSilver = 0.0000024; // 0.0000024
 var radiusSilver = 0.04; // 0.04
 var spinareaSilver = 0.000546; // fel 
+var spinsilvermass = 0.112;
 
 var inertiaGreen = 0.00037798; // 0.00037798
 var frictionGreen = 0.0000024; // 0.0000024
 var radiusGreen = 0.042; // 0.042
 var spinareaGreen = 0.000546; // fel
+var spingreenmass = 0.196;
 
 var slider = document.getElementById("initialforce");
 var output = document.getElementById("demo");
+var velocityoutput = document.getElementById("velocity");
+var currentmass = document.getElementById("mass");
 
 
 
@@ -57,9 +62,9 @@ var sceneRoot = new THREE.Group();
 scene.add(sceneRoot);
 
 // Spinner options
-spinnerRed = new Spinner(radiusRed, inertiaRed, frictionRed, spinareaRed, "textures/red.png", "spinners/spinner.obj");
-spinnerSilver = new Spinner(radiusSilver, inertiaSilver, frictionSilver, spinareaSilver, "textures/metal.jpg", "spinners/gulbatman.obj");
-spinnerGreen = new Spinner(radiusGreen, inertiaGreen, frictionGreen, spinareaGreen, "textures/marble.jpg", "spinners/tredjespinner.obj");
+spinnerRed = new Spinner(radiusRed, inertiaRed, frictionRed, spinareaRed, "textures/red.png", "spinners/spinner.obj", spinredmass);
+spinnerSilver = new Spinner(radiusSilver, inertiaSilver, frictionSilver, spinareaSilver, "textures/metal.jpg", "spinners/gulbatman.obj", spinsilvermass);
+spinnerGreen = new Spinner(radiusGreen, inertiaGreen, frictionGreen, spinareaGreen, "textures/marble.jpg", "spinners/tredjespinner.obj", spingreenmass);
 //initialize spinner
 var currentSpinner = spinnerRed;
 
@@ -110,19 +115,22 @@ function render() {
 	document.getElementById("spinnerSilver").addEventListener("click", getSpinnerSilver());
 	document.getElementById("spinnerGreen").addEventListener("click", getSpinnerGreen());
 
+	//Force
+	output.innerHTML = slider.value;
+	slider.oninput = function() {
+	output.innerHTML = this.value;
+	}
 
-output.innerHTML = slider.value;
-
-slider.oninput = function() {
-  output.innerHTML = this.value;
-}
-
-
+	//Velocity
+	velocityoutput.innerHTML = Number(currentSpinner.angularVelocity.toFixed(5));
+	
+	//Mass
+	currentmass.innerHTML = currentSpinner.mass;
+	
+	
 	time = Date.now();
 	ellapsedTime = time - startTime;
-	console.log(force);
-
-	oldPosition = currentSpinner.angularPosition;
+	console.log(currentSpinner.inertia);
 
 	if(force != 0 && ellapsedTime > forcetime) //200 millisec = 0.2 sec
 		force = 0; //after some time, stop applying force
