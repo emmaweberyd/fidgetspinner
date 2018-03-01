@@ -1,7 +1,7 @@
 class Spinner {
 
-	constructor(radie, inertia, friction, spinarea, texture, object){
-		this.radie = radie; 
+	constructor(radius, inertia, friction, spinarea, texture, object){
+		this.radius = radius; 
 		this.friction = friction; 
 		this.inertia = inertia;
 		this.angularPosition = 0;
@@ -14,11 +14,12 @@ class Spinner {
  		}
 
 		spin(force, stepLength) { // Updates angular position with euler
-		var angularAcceleration = (1/(this.inertia)) * (this.radie*force - this.friction*this.angularVelocity - this.airResistance*this.angularVelocity);
+		var angularAcceleration = (1/(this.inertia)) * (this.radius*force - this.friction*this.angularVelocity - this.airResistance*this.angularVelocity);
 		this.angularVelocity = this.angularVelocity + stepLength*angularAcceleration;
 		this.angularPosition = this.angularPosition + stepLength*this.angularVelocity;
 		
+		
 		// 0.5 i formel, 0.4 är luftmotståndskoefficient 1.2 är luftens densitet
-		this.airResistance = 0.5 * 0.4 * 1.2041 *  this.spinarea * Math.pow(this.radie*this.angularVelocity , 2);
+		this.airResistance = 0.5 * 0.4 * 1.2041 *  this.spinarea * Math.pow(this.radius*this.angularVelocity , 2);
 	}
 }
