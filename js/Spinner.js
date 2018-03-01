@@ -10,8 +10,7 @@ class Spinner {
 		this.texture = texture;
 		this.object = object;
 		this.spinarea = spinarea;
-		this.airResistance = 0;
-		 
+		this.airResistance = 0;		 
  		}
 
 		spin(force, stepLength) { // Updates angular position with euler
@@ -19,8 +18,7 @@ class Spinner {
 		this.angularVelocity = this.angularVelocity + stepLength*angularAcceleration;
 		this.angularPosition = this.angularPosition + stepLength*this.angularVelocity;
 		
+		// 0.5 i formel, 0.4 är luftmotståndskoefficient 1.2 är luftens densitet
 		this.airResistance = 0.5 * 0.4 * 1.2041 *  this.spinarea * Math.pow(this.radie*this.angularVelocity , 2);
-
 	}
-
 }
