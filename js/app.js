@@ -36,7 +36,7 @@ var output = document.getElementById("demo");
 var velocityoutput = document.getElementById("velocity");
 var currentmass = document.getElementById("mass");
 var inertia = document.getElementById("inertia");
-var friction = document.getElementById("drag");
+var airRes = document.getElementById("drag");
 
 var scene = new THREE.Scene();
 var camera = new THREE.PerspectiveCamera( 45, window.innerWidth/window.innerHeight, 1, 2000 );
@@ -184,7 +184,7 @@ function render() {
 		//Mass
 		currentmass.innerHTML = spinnerRed.mass;
 		inertia.innerHTML = spinnerRed.inertia;
-		friction.innerHTML = spinnerRed.friction;
+		airRes.innerHTML = spinnerRed.airResistance.toFixed(10);
 	}
 	else if (fidget == 2){
 		spinnerSilver.spin(force, steplength);
@@ -194,7 +194,7 @@ function render() {
 		//Mass
 		currentmass.innerHTML = spinnerSilver.mass;
 		inertia.innerHTML = spinnerSilver.inertia;
-		friction.innerHTML = spinnerSilver.friction;
+		airRes.innerHTML = spinnerSilver.airResistance.toFixed(10);
 	}
 	else if (fidget == 3){
 		spinnerGreen.spin(force, steplength);
@@ -204,7 +204,7 @@ function render() {
 		//Mass
 		currentmass.innerHTML = spinnerGreen.mass;
 		inertia.innerHTML = spinnerGreen.inertia;
-		friction.innerHTML = spinnerGreen.friction;
+		airRes.innerHTML = spinnerGreen.airResistance.toFixed(10);
 	}
 
 	renderer.render(scene, camera);
