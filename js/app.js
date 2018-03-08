@@ -35,13 +35,15 @@ var slider = document.getElementById("initialforce");
 var output = document.getElementById("demo");
 var velocityoutput = document.getElementById("velocity");
 var currentmass = document.getElementById("mass");
+var inertia = document.getElementById("inertia");
+var friction = document.getElementById("drag");
 
 var scene = new THREE.Scene();
 var camera = new THREE.PerspectiveCamera( 45, window.innerWidth/window.innerHeight, 1, 2000 );
 camera.position.set(0, 0, 1000);
 
 var renderer = new THREE.WebGLRenderer();
-renderer.setSize( window.innerWidth, window.innerHeight );
+renderer.setSize( window.innerWidth*0.85, window.innerHeight*0.85 );
 container.appendChild( renderer.domElement );
 
 // instantiate a loader
@@ -181,6 +183,8 @@ function render() {
 		velocityoutput.innerHTML = Number(spinnerRed.angularVelocity.toFixed(5));
 		//Mass
 		currentmass.innerHTML = spinnerRed.mass;
+		inertia.innerHTML = spinnerRed.inertia;
+		friction.innerHTML = spinnerRed.friction;
 	}
 	else if (fidget == 2){
 		spinnerSilver.spin(force, steplength);
@@ -189,6 +193,8 @@ function render() {
 		velocityoutput.innerHTML = Number(spinnerSilver.angularVelocity.toFixed(5));
 		//Mass
 		currentmass.innerHTML = spinnerSilver.mass;
+		inertia.innerHTML = spinnerSilver.inertia;
+		friction.innerHTML = spinnerSilver.friction;
 	}
 	else if (fidget == 3){
 		spinnerGreen.spin(force, steplength);
@@ -197,6 +203,8 @@ function render() {
 		velocityoutput.innerHTML = Number(spinnerGreen.angularVelocity.toFixed(5));
 		//Mass
 		currentmass.innerHTML = spinnerGreen.mass;
+		inertia.innerHTML = spinnerGreen.inertia;
+		friction.innerHTML = spinnerGreen.friction;
 	}
 
 	renderer.render(scene, camera);
