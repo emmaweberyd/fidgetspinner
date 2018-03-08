@@ -5,7 +5,8 @@ var ellapsedTime = 0;
 var time;
 var startTime;
 var animationFrame;
-var isStopped = false;
+var isStopped = true;
+var fidget = 1;
 
 // variables to change
 //var startForce = 10; //initial force = 10
@@ -55,29 +56,34 @@ camera.add( pointLight );
 scene.add( camera );
 
 // sceen root
-var sceneRoot = new THREE.Group();
-scene.add(sceneRoot);
+var sceneRoot1 = new THREE.Group();
+var sceneRoot2 = new THREE.Group();
+var sceneRoot3 = new THREE.Group();
+scene.add(sceneRoot1);
+scene.add(sceneRoot2);
+scene.add(sceneRoot3);
 
 // Spinner options
-spinnerRed = new Spinner(radiusRed, inertiaRed, frictionRed, spinareaRed, "textures/red.png", "spinners/spinner.obj", spinredmass);
-spinnerSilver = new Spinner(radiusSilver, inertiaSilver, frictionSilver, spinareaSilver, "textures/metal.jpg", "spinners/gulbatman.obj", spinsilvermass);
-spinnerGreen = new Spinner(radiusGreen, inertiaGreen, frictionGreen, spinareaGreen, "textures/marble.jpg", "spinners/tredjespinner.obj", spingreenmass);
-//initialize spinner
-var currentSpinner = spinnerRed;
+var spinnerRed = new Spinner(radiusRed, inertiaRed, frictionRed, spinareaRed, "textures/red.png", "spinners/spinner.obj", spinredmass);
+var spinnerSilver = new Spinner(radiusSilver, inertiaSilver, frictionSilver, spinareaSilver, "textures/metal.jpg", "spinners/gulbatman.obj", spinsilvermass);
+var spinnerGreen = new Spinner(radiusGreen, inertiaGreen, frictionGreen, spinareaGreen, "textures/marble.jpg", "spinners/tredjespinner.obj", spingreenmass);
 
 init();
-//animate();
+force = 0;
+animate();
 
 function init(){
 
 	//texture = textureLoader.load( currentSpinner.texture );
-	texture = textureLoader.load(currentSpinner.texture);
+	texture1 = textureLoader.load(spinnerRed.texture);
+	texture2 = textureLoader.load(spinnerSilver.texture);
+	texture3 = textureLoader.load(spinnerGreen.texture);
 
 	// initialize start time
 	startTime = Date.now();
 
 	// load a resource
-	loader.load(currentSpinner.object,
+	loader.load(spinnerRed.object,
 		// called when resource is loaded
 		function ( object ) {
 
@@ -85,7 +91,7 @@ function init(){
 
 				if ( child instanceof THREE.Mesh ) {
 
-					child.material.map = texture;
+					child.material.map = texture1;
 
 				}
 
@@ -93,11 +99,59 @@ function init(){
 			// Rätar upp fidget 
 			object.rotation.x = pi/2;
 			// lägger till fidget i scenen
-			sceneRoot.add( object );
+			sceneRoot1.add( object );
 
 		}
 	);
+
+	// load a resource
+	loader.load(spinnerSilver.object,
+		// called when resource is loaded
+		function ( object ) {
+
+			object.traverse( function ( child ) {
+
+				if ( child instanceof THREE.Mesh ) {
+
+					child.material.map = texture2;
+
+				}
+
+			} );
+			// Rätar upp fidget 
+			object.rotation.x = pi/2;
+			// lägger till fidget i scenen
+			sceneRoot2.add( object );
+
+		}
+	);
+
+	sceneRoot2.translateZ(5000); //translatera ur bild
 }
+
+	// load a resource
+	loader.load(spinnerGreen.object,
+		// called when resource is loaded
+		function ( object ) {
+
+			object.traverse( function ( child ) {
+
+				if ( child instanceof THREE.Mesh ) {
+
+					child.material.map = texture3;
+
+				}
+
+			} );
+			// Rätar upp fidget 
+			object.rotation.x = pi/2;
+			// lägger till fidget i scenen
+			sceneRoot3.add( object );
+
+		}
+	);
+
+	sceneRoot3.translateZ(5000); //translatera ur bild
 
 function animate() {
 
@@ -107,76 +161,106 @@ function animate() {
 }
 
 function render() {
-	
-	document.getElementById("spinnerRed").addEventListener("click", getSpinnerRed());
-	document.getElementById("spinnerSilver").addEventListener("click", getSpinnerSilver());
-	document.getElementById("spinnerGreen").addEventListener("click", getSpinnerGreen());
 
 	//Force
 	output.innerHTML = slider.value;
 	slider.oninput = function() {
-	output.innerHTML = this.value;
+		output.innerHTML = this.value;
 	}
-
-	//Velocity
-	velocityoutput.innerHTML = Number(currentSpinner.angularVelocity.toFixed(5));
-	
-	//Mass
-	currentmass.innerHTML = currentSpinner.mass;
 
 	time = Date.now();
 	ellapsedTime = time - startTime;
-	console.log(currentSpinner.inertia);
 
 	if(force != 0 && ellapsedTime > forcetime) //200 millisec = 0.2 sec
 		force = 0; //after some time, stop applying force
 
-	currentSpinner.spin(force, steplength); 
-	
-	sceneRoot.rotation.z += currentSpinner.angularPosition - currentSpinner.oldPosition;
+	if (fidget == 1){
+		spinnerRed.spin(force, steplength); 
+		sceneRoot1.rotation.z += spinnerRed.angularPosition - spinnerRed.oldPosition;
+		//Velocity
+		velocityoutput.innerHTML = Number(spinnerRed.angularVelocity.toFixed(5));
+		//Mass
+		currentmass.innerHTML = spinnerRed.mass;
+	}
+	else if (fidget == 2){
+		spinnerSilver.spin(force, steplength);
+		sceneRoot2.rotation.z += spinnerSilver.angularPosition - spinnerSilver.oldPosition;
+		//Velocity
+		velocityoutput.innerHTML = Number(spinnerSilver.angularVelocity.toFixed(5));
+		//Mass
+		currentmass.innerHTML = spinnerSilver.mass;
+	}
+	else if (fidget == 3){
+		spinnerGreen.spin(force, steplength);
+		sceneRoot3.rotation.z += spinnerGreen.angularPosition - spinnerGreen.oldPosition;
+		//Velocity
+		velocityoutput.innerHTML = Number(spinnerGreen.angularVelocity.toFixed(5));
+		//Mass
+		currentmass.innerHTML = spinnerGreen.mass;
+	}
 
 	renderer.render(scene, camera);
 
 }
 
-function switchSpinner() {
-
-	//remove everything
-	for(i = sceneRoot.children.length; i >= 0; i--){
-		sceneRoot.remove(sceneRoot.children[i]);
-	}
-
-	Stop();
-	//reinitialise the stuff
-	init();
-
-}
+/*****************************************
+*        HANTERAR VAL AV SPINNER         *
+*****************************************/
 
 function updateCurrentSpinner(number) {
-	if (number === 1)
-		currentSpinner = spinnerRed;
-	else if (number === 2)
-		currentSpinner = spinnerSilver;
-	else if (number === 3)
-		currentSpinner = spinnerGreen;
-
-	switchSpinner();
+	if (number === 1){
+		fidget = 1;
+		moveAway(sceneRoot2);
+		moveAway(sceneRoot3);
+		spinnerGreen.stopSpin();
+		spinnerSilver.stopSpin();
+		moveToOrigin(sceneRoot1);
+	}
+	else if (number === 2){
+		fidget = 2;
+		moveAway(sceneRoot1);
+		moveAway(sceneRoot3);
+		spinnerGreen.stopSpin();
+		spinnerRed.stopSpin();
+		moveToOrigin(sceneRoot2);
+	}
+	else if (number === 3){
+		fidget = 3;
+		moveAway(sceneRoot2);
+		moveAway(sceneRoot1);
+		spinnerRed.stopSpin();
+		spinnerSilver.stopSpin();
+		moveToOrigin(sceneRoot3);
+	}
+	isStopped = true;
+	document.getElementById('button').innerHTML = "START";
 }
 
-function getSpinnerRed(){
-	currentSpinner = spinnerRed;
+function moveToOrigin(sceneRoot){
+		sceneRoot.position.z = 0;
 }
 
-function getSpinnerSilver(){
-	currentSpinner = spinnerSilver;
-}
+function moveAway(sceneRoot){
+		sceneRoot.position.z = 5000;
+ }
 
-function getSpinnerGreen(){
-	currentSpinner = spinnerGreen;
+ /*****************************************
+*        HANTERAR KNAPPFUNKTIONEN         *
+******************************************/
+
+function Button(){
+
+	if(isStopped)
+		Start();
+	else 
+		Stop();
+
 }
 
 function Stop(){
-	cancelAnimationFrame(animationFrame);
+	spinnerRed.stopSpin();
+	spinnerSilver.stopSpin();
+	spinnerGreen.stopSpin();
 	isStopped = true;
 	document.getElementById("button").innerHTML = "START";
 
@@ -184,23 +268,14 @@ function Stop(){
 
 function Start(){
 
-
-
-	startTime = Date.now(); //restart time 
-	oldPosition = 0;
+	restartTime();
 	force = document.getElementById("initialforce").value;
-	if (force == 0)
-		isStopped = true;
-	else {
-		animate();
-		isStopped = false;
-		document.getElementById("button").innerHTML = "STOPP";
-	}
+	isStopped = false;
+	document.getElementById("button").innerHTML = "STOPP";
+
 }
 
-function Button(){
-	if(isStopped)
-		Start();
-	else 
-		Stop();
-}
+function restartTime(){ startTime = Date.now(); }
+
+
+
