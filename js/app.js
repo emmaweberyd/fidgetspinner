@@ -13,7 +13,7 @@ var fidget = 1;
 var forcetime = 200; // 200
 var steplength = 0.01; // 0.05
 
-var inertiaRed = 0.00005; // 0.00005
+var inertiaRed = 0.000044175; // 0.00005
 var frictionRed = 0.0000024; // 0.0000024
 var radiusRed = 0.026; // 0.026
 var spinareaRed = 0.00035; // nya värden
