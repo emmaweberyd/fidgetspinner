@@ -282,3 +282,9 @@ function Start(){
 	document.getElementById("button").innerHTML = "STOPP";
 
 }
+
+function restartTime()
+{
+	startTime = Date.now();
+}
+	
