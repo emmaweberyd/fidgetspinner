@@ -14,19 +14,19 @@ var forcetime = 200; // 200
 var steplength = 0.01; // 0.05
 
 var inertiaRed = 0.000044175; // 0.00005
-var frictionRed = 0.0000024; // 0.0000024
+var frictionRed = 0.0000000024; // 0.0000024
 var radiusRed = 0.026; // 0.026
 var spinareaRed = 0.00035; // nya värden
 var spinredmass = 0.0560; // 0.0560
 
 var inertiaSilver = 0.00022697; // 0.00022697
-var frictionSilver = 0.0000024; // 0.0000024
+var frictionSilver =  0.0000000024; // 0.0000024
 var radiusSilver = 0.04; // 0.04
 var spinareaSilver = 0.000735; // nya värden
 var spinsilvermass = 0.112;
 
 var inertiaGreen = 0.00037798; // 0.00037798
-var frictionGreen = 0.0000024; // 0.0000024
+var frictionGreen =  0.0000000024; // 0.0000024
 var radiusGreen = 0.042; // 0.042
 var spinareaGreen = 0.001; // nya värden
 var spingreenmass = 0.196;
